@@ -89,9 +89,12 @@ let coingecko = {
 
         let uri = apiEndpoint + url
 
-        let body = yield curlUtil.getCoinGeckoTokenPrice(uri)
-
-        return JSON.parse(body)
+        try {
+            let body = yield curlUtil.getCoinGeckoTokenPrice(uri)
+            return JSON.parse(body)
+        } catch (e) {
+            throw new Error('getTokenMarket error! url: ' + uri + ",params: " + JSON.stringify(params));
+        }
     }),
 
 
